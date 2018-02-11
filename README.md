@@ -1,6 +1,6 @@
 # rust-os
 
-Experimental Project.
+Experimental Project. Operation System written in Rust.
 
 ## Getting Started
 
@@ -12,8 +12,24 @@ cargo install Xargo
 
 If you're getting a linking error about LLD, you need to install lld too.
 
+## Build
+
 Let's try to build:
 
 ```
-RUST_TARGET_PATH=[YOUR DIR PATH]  xargo build --target x86_64-blog_os
+./build.sh
+```
+
+## Boostrap
+
+You need to `bootimage` in cargo to create bootstrap image and [QEMU](https://www.qemu.org/) to launch GUI.
+
+```
+cargo install bootimage
+```
+
+You can launch this OS as below:
+
+```
+./bootstrap.sh
 ```
