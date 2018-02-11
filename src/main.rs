@@ -4,9 +4,9 @@
 
 static HELLO: &[u8] = b"Hello, World!";
 
-// mac
+// linux
 #[no_mangle]
-pub extern "C" fn main() -> ! {
+pub extern "C" fn _start() -> ! {
     let vga_buffer = 0xb8000 as *const u8 as *mut u8;
 
     for (i, &byte) in HELLO.iter().enumerate() {
@@ -16,12 +16,6 @@ pub extern "C" fn main() -> ! {
         }
     }
 
-    loop {}
-}
-
-// linux
-#[no_mangle]
-pub extern "C" fn _start() -> ! {
     loop {}
 }
 
