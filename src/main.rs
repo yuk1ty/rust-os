@@ -4,10 +4,9 @@
 
 // mac
 #[no_mangle]
-pub extern fn main() -> ! {
+pub extern "C" fn main() -> ! {
     loop {}
 }
-
 
 // linux
 #[no_mangle]
