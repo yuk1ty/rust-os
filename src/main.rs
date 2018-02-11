@@ -2,6 +2,19 @@
 #![no_std]
 #![no_main]
 
+// mac
+#[no_mangle]
+pub extern fn main() -> ! {
+    loop {}
+}
+
+
+// linux
+#[no_mangle]
+pub extern "C" fn _start() -> ! {
+    loop {}
+}
+
 #[lang = "panic_fmt"]
 #[no_mangle]
 pub extern "C" fn rust_begin_panic(
