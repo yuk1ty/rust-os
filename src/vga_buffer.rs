@@ -2,6 +2,14 @@ use volatile::Volatile;
 use spin::Mutex;
 use core::fmt;
 
+lazy_static! {
+    pub static ref WRITER: Mutex<Writer> = Mutex::new(Writer {
+        column_position: 0,
+        color_code: ColorCode::new(Color::Yellow, Color::Black),
+        buffer: unsafe { &mut *(0xb800 as *mut Buffer) },
+    });
+}
+
 #[allow(dead_code)]
 #[derive(Debug, Clone, Copy)]
 #[repr(u8)]
@@ -75,12 +83,6 @@ impl Writer {
         }
     }
 
-    pub fn write_str(&mut self, s: &str) {
-        for byte in s.bytes() {
-            self.write_byte(byte)
-        }
-    }
-
     fn new_line(&mut self) {
         for row in 1..BUFFER_HEIGHT {
             for col in 0..BUFFER_WIDTH {
@@ -110,23 +112,4 @@ impl fmt::Write for Writer {
         }
         Ok(())
     }
-}
-
-pub fn print_something() {
-    let mut writer = Writer {
-        column_position: 0,
-        color_code: ColorCode::new(Color::Yellow, Color::Black),
-        buffer: unsafe { &mut *(0xb800 as *mut Buffer) },
-    };
-
-    writer.write_byte(b'H');
-    writer.write_str("ello");
-}
-
-lazy_static! {
-    pub static ref WRITER: Mutex<Writer> = Mutex::new(Writer {
-        column_position: 0,
-        color_code: ColorCode::new(Color::Yellow, Color::Black),
-        buffer: unsafe { &mut *(0xb800 as *mut Buffer) },
-    });
 }
