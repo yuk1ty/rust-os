@@ -3,6 +3,11 @@
 #![no_std]
 #![no_main]
 
+extern crate volatile;
+extern crate spin;
+#[macro_use]
+extern crate lazy_static;
+
 mod vga_buffer;
 
 static HELLO: &[u8] = b"Hello, World!";
@@ -21,8 +26,6 @@ pub extern "C" fn _start() -> ! {
     }
     loop {}
 }
-
-
 
 #[lang = "panic_fmt"]
 #[no_mangle]
