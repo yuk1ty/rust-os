@@ -1,8 +1,12 @@
+#![feature(const_fn)]
 #![feature(lang_items)]
 #![no_std]
 #![no_main]
 
+mod vga_buffer;
+
 static HELLO: &[u8] = b"Hello, World!";
+static PANIC: &[u8] = b"Panic has been occurred!";
 
 // linux
 #[no_mangle]
@@ -15,9 +19,10 @@ pub extern "C" fn _start() -> ! {
             *vga_buffer.offset(i as isize * 2 + 1) = 0xb;
         }
     }
-
     loop {}
 }
+
+
 
 #[lang = "panic_fmt"]
 #[no_mangle]
