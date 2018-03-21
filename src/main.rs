@@ -8,6 +8,7 @@ extern crate lazy_static;
 extern crate spin;
 extern crate volatile;
 
+#[macro_use]
 mod vga_buffer;
 
 static HELLO: &[u8] = b"Hello, World!";
@@ -16,9 +17,10 @@ static PANIC: &[u8] = b"Panic has been occurred!";
 // linux
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
-    use core::fmt::Write;
-    vga_buffer::WRITER.lock().write_str("Hello, again").unwrap();
-    write!(vga_buffer::WRITER.lock(), ", some numbers: {} {}", 42, 1.337).unwrap();
+//    use core::fmt::Write;
+//    vga_buffer::WRITER.lock().write_str("Hello, again").unwrap();
+//    write!(vga_buffer::WRITER.lock(), ", some numbers: {} {}", 42, 1.337).unwrap();
+    println!("Hello, World{}", "!");
 
     loop {}
 }
